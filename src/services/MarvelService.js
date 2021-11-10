@@ -16,7 +16,7 @@ class MarvelService {
     };
 
     getAllCharacters = async(offset = this._baseOffset) => {
-        const res = await this.getResource(`${this._apiBase}characters?limit=9&offset=${offset}&${this._apiKey}`);
+        const res = await this.getResource(`https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json`);
         return res.data.results.map(this._transformCharacter);
     }
 
