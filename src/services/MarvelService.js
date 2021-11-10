@@ -14,15 +14,14 @@ const  useMarvelService = () => {
         return res.data.results.map(_transformCharacter);
     }
 
-<<<<<<< HEAD
-    getAllCharacters = async(offset = this._baseOffset) => {
-        const res = await this.getResource(`https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json`);
-        return res.data.results.map(this._transformCharacter);
-=======
     const getAllComics = async(offset = 0) => {
         const res = await request(`${_apiBase}comics?orderBy=issueNumber&limit=8&offset=${offset}&${_apiKey}`);
         return res.data.results.map(_transformComics);
->>>>>>> origin/main
+    }
+
+    const getComics = async (id) => {
+        const res = await request(`${_apiBase}comics/${id}?${_apiKey}`);
+        return _transformComics(res.data.res[0]);
     }
 
     const getCharacter = async (id) => {
@@ -57,7 +56,7 @@ const  useMarvelService = () => {
         }
     }
 
-    return {loading, error,clearError, getAllCharacters, getCharacter, getAllComics};
+    return {loading, error,clearError, getAllCharacters, getCharacter, getAllComics, getComics};
 }
 
 export default useMarvelService;
