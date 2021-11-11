@@ -1,26 +1,9 @@
-import { useState } from "react";
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 
+import {MainPage, ComicsPage} from '../pages';
 import AppHeader from "../appHeader/AppHeader";
-import AppBanner from "../appBanner/AppBanner";
-import RandomChar from "../randomChar/RandomChar";
-import CharList from "../charList/CharList";
-import CharInfo from "../charInfo/CharInfo";
-import ErrorBoundary from '../errorBoundary/ErrorBoundary';
-import ComicsList from "../comicsList/ComicsList";
-import SingleComic from "../singleComic/SingleComic";
-
-import decoration from '../../resources/img/vision.png';
 
 const App = () => {
-
-    const [selectedChar, setChar] = useState(null);
-   
-
-    const onCharSelected = (id) => {
-       setChar(id)
-    }
-
     
     return (
         <Router>
@@ -28,30 +11,17 @@ const App = () => {
                 <AppHeader/>
                 <main>
                     <Routes>
-                        <Route exact path='/'>
-                            <ErrorBoundary>
-                                <RandomChar/>
-                            </ErrorBoundary>
-                            <div className="char__content">
-                                <ErrorBoundary>
-                                    <CharList onCharSelected={onCharSelected}/>
-                                </ErrorBoundary>
-                                <ErrorBoundary>
-                                    <CharInfo charId={selectedChar}/>
-                                </ErrorBoundary>        
-                            </div>
-                            <img className="bg-decoration" src={decoration} alt="vision"/>
+                        <Route exact path="/">
+                            <MainPage/>
                         </Route>
-                        <Route exact path='/comics'>
-                            <AppBanner/>
-                            <ComicsList/>
+                        <Route exact path="/comics">
+                            <ComicsPage/>
                         </Route>
                     </Routes>
                 </main>
             </div>
         </Router>
     )
-
 }
 
 export default App;
