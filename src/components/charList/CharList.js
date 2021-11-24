@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Spinner from '../spinner/spinner';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import useMarvelService from '../../services/MarvelService';
+import {CSSTransition, Transition, TransitionGroup } from 'react-transition-group';
 
 
 import './charList.scss';
@@ -56,30 +57,35 @@ const CharList = (props) => {
                 imgStyle = {'objectFit' : 'contain'};
             }
             return(
-                <li className="char__item" 
-                tabIndex={0}
-                ref={el => itemRefs.current[i] = el}
-                key={item.id}
-                onClick={ ()=> { 
-                    props.onCharSelected(item.id)
-                    focusOnItem(i)}}
-                onKeyPress={(e) => {
-                    if (e.key === '' || e.key === 'Enter') {
-                        props.onCharSelected(item.id);
-                        focusOnItem();
-                    }
-                }}
-               
-                 >
-                    <img style={imgStyle} src={item.thumbnail} alt={item.name}/>
-                    <div className="char__name">{item.name}</div>
-                </li>
-            )
+                    <CSSTransition key={item.id} timeout={500} classNames="char__item">
+                        <li className="char__item" 
+                            tabIndex={0}
+                            ref={el => itemRefs.current[i] = el}
+                            key={item.id}
+                            onClick={ ()=> { 
+                                props.onCharSelected(item.id)
+                                focusOnItem(i)}}
+                            onKeyPress={(e) => {
+                                if (e.key === '' || e.key === 'Enter') {
+                                    props.onCharSelected(item.id);
+                                    focusOnItem(i);
+                                }
+                            }}>
+                            <img style={imgStyle} src={item.thumbnail} alt={item.name}/>
+                            <div className="char__name">{item.name}</div>
+                        </li>
+                    </CSSTransition>
+                    
+                ) 
         });
+
         return(
             <ul className="char__grid">
-                {items}
+                <TransitionGroup component={null}>
+                    {items}
+                </TransitionGroup>
             </ul>
+           
         )
         
     }
@@ -89,9 +95,11 @@ const CharList = (props) => {
     const errorMessage = error ? <ErrorMessage/> : null;
     const spinner = loading && !newItemLoading ? <Spinner/> : null;
     
-
+    
+    
     return (
-        <div className="char__list">
+        
+        <div className="char__list"  >
             {errorMessage}
             {spinner}
             {items}
@@ -104,6 +112,7 @@ const CharList = (props) => {
                 <div className="inner">load more</div>
             </button>
         </div>
+          
     )
 }
 CharList.propTypes = {
