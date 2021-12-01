@@ -20,7 +20,7 @@ const SinglePage = ({Component, dataType}) => {
         clearError();
 
         switch (dataType) {
-            case 'comic' :
+            case 'comics' :
                 getComic(id).then(onDataLoaded);
                 break;
             case 'character' :
