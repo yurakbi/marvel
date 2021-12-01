@@ -1,56 +1,49 @@
-import {useParams} from 'react-router-dom';
-import {useState, useEffect} from 'react';
+import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 import useMarvelService from '../../services/MarvelService';
 import Spinner from '../spinner/spinner';
 import ErrorMessage from '../errorMessage/ErrorMessage';
-import AppBanner from '../appBanner/AppBanner';
+import AppBanner from "../appBanner/AppBanner";
 
 
 const SinglePage = ({Component, dataType}) => {
-    const {id} = useParams();
-    const [data, setData] = useState(null);
-    const {loading, error, getComics, getCharacter, clearError} = useMarvelService();
+        const {id} = useParams();
+        const [data, setData] = useState(null);
+        const {loading, error, getComics, getCharacter, clearError} = useMarvelService();
 
-    useEffect (() => {
-        updateData()
-    }, [id])
+        useEffect(() => {
+            updateData()
+        }, [id])
 
-    const updateData = () => {
-        clearError();
+        const updateData = () => {
+            clearError();
 
-        switch (dataType) {
-<<<<<<< HEAD
-            case 'comics' :
-                getComic(id).then(onDataLoaded);
-                break;
-=======
->>>>>>> 0373cfd2fdfb920680cbae2a73a0f140f08a0714
-            case 'character' :
-                getCharacter(id).then(onDataLoaded);
-                break;
-            case 'comics':
-                getComics(id).then(onDataLoaded);
+            switch (dataType) {
+                case 'comic':
+                    getComics(id).then(onDataLoaded);
+                    break;
+                case 'character':
+                    getCharacter(id).then(onDataLoaded);
+            }
         }
-    }
 
-    const onDataLoaded = (data) => {
-        setData(data);
-    }
+        const onDataLoaded = (data) => {
+            setData(data);
+        }
 
-    const errorMessage = error ? <ErrorMessage/> : null;
-    const spinner = loading ? <Spinner/> : null;
-    const content = !(loading || error || !data) ? <Component data={data}/> : null
+        const errorMessage = error ? <ErrorMessage/> : null;
+        const spinner = loading ? <Spinner/> : null;
+        const content = !(loading || error || !data) ? <Component data={data}/> : null;
 
-    return (
-        <>
-            <AppBanner/>
-            {errorMessage}
-            {spinner}
-            {content}
-        </>
-    )
-
+        return (
+            <>
+                <AppBanner/>
+                {errorMessage}
+                {spinner}
+                {content}
+            </>
+        )
 }
 
 export default SinglePage;
