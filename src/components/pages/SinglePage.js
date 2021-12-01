@@ -10,7 +10,7 @@ import AppBanner from '../appBanner/AppBanner';
 const SinglePage = ({Component, dataType}) => {
     const {id} = useParams();
     const [data, setData] = useState(null);
-    const {loading, error, getComic, getCharacter, clearError} = useMarvelService();
+    const {loading, error, getComics, getCharacter, clearError} = useMarvelService();
 
     useEffect (() => {
         updateData()
@@ -20,11 +20,17 @@ const SinglePage = ({Component, dataType}) => {
         clearError();
 
         switch (dataType) {
+<<<<<<< HEAD
             case 'comics' :
                 getComic(id).then(onDataLoaded);
                 break;
+=======
+>>>>>>> 0373cfd2fdfb920680cbae2a73a0f140f08a0714
             case 'character' :
                 getCharacter(id).then(onDataLoaded);
+                break;
+            case 'comics':
+                getComics(id).then(onDataLoaded);
         }
     }
 
