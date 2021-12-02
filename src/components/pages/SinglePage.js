@@ -6,7 +6,6 @@ import Spinner from '../spinner/spinner';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import AppBanner from "../appBanner/AppBanner";
 
-
 const SinglePage = ({Component, dataType}) => {
         const {id} = useParams();
         const [data, setData] = useState(null);
@@ -22,7 +21,7 @@ const SinglePage = ({Component, dataType}) => {
             switch (dataType) {
                 case 'comic':
                     getComics(id).then(onDataLoaded);
-                    break;
+                    break;  
                 case 'character':
                     getCharacter(id).then(onDataLoaded);
             }
@@ -37,12 +36,12 @@ const SinglePage = ({Component, dataType}) => {
         const content = !(loading || error || !data) ? <Component data={data}/> : null;
 
         return (
-            <>
-                <AppBanner/>
-                {errorMessage}
-                {spinner}
-                {content}
-            </>
+                <>
+                    <AppBanner/>
+                    {errorMessage}
+                    {spinner}
+                    {content}
+                </>
         )
 }
 
