@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
@@ -17,10 +18,11 @@ const SinglePage = ({Component, dataType}) => {
         const updateData = () => {
             clearError();
 
+            // eslint-disable-next-line default-case
             switch (dataType) {
                 case 'comic':
                     getComics(id).then(onDataLoaded).then(() => setProcess('confirmed'));
-                    break;  
+                // eslint-disable-next-line no-fallthrough
                 case 'character':
                     getCharacter(id).then(onDataLoaded).then(() => setProcess('confirmed'));
             }
